@@ -72,7 +72,6 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef * htim)
 
 		step_durdur(&step1);
 
-
 		}
 
 }
