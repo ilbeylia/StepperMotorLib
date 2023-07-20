@@ -60,8 +60,8 @@ all: main-build
 main-build: STM32_Step_Lib.elf secondary-outputs
 
 # Tool invocations
-STM32_Step_Lib.elf STM32_Step_Lib.map: $(OBJS) $(USER_OBJS) D:\Ilbeyli\STM32_Step_Lib\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32_Step_Lib.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Ilbeyli\STM32_Step_Lib\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_Step_Lib.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32_Step_Lib.elf STM32_Step_Lib.map: $(OBJS) $(USER_OBJS) C:\Users\ilbeyli\Desktop\Libraries_Created\Stm32_Step_Motor_lib\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32_Step_Lib.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\ilbeyli\Desktop\Libraries_Created\Stm32_Step_Motor_lib\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32_Step_Lib.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

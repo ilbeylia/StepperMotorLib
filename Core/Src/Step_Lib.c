@@ -35,6 +35,7 @@ void step(step_config* step_config, uint32_t adim, uint32_t yon)
 
 		if (0 != adim){
 			HAL_TIM_PWM_Start_IT(step_config->Timer_handle, step_config->Timer_channel);
+			__HAL_TIM_SET_COMPARE(step_config->Timer_handle, step_config->Timer_channel, 100);
 		}
 
 
