@@ -9,12 +9,14 @@
 
 void step_init(	step_config* step_config,
 				#if defined (STM32F4)
-				TIM_HandleTypeDef*	Timer_handle,
-				uint32_t			Timer_channel,
-				GPIO_TypeDef*		dir_GPIOx,
-				uint16_t			dir_GPIO_Pin
+					TIM_HandleTypeDef*	Timer_handle,
+					uint32_t			Timer_channel,
+					GPIO_TypeDef*		dir_GPIOx,
+					uint16_t			dir_GPIO_Pin
 				#elif defined (ARDUINO)
-				// parameter for the arduino
+					int					Step_pin,
+					int 				Dir_pin,
+
 				#endif
 				)
 {
@@ -24,7 +26,11 @@ void step_init(	step_config* step_config,
 		step_config->dir_GPIOx		= dir_GPIOx;
 		step_config->dir_GPIO_Pin	= dir_GPIO_Pin;
 	#elif defined (ARDUINO)
-		// for  arduino
+		step_config->Step_pin 		= Step_pin;
+		step_config->Dir_pin 		= Dir_pin;
+
+		pinMode(Step_pin, OUTPUT);
+		pinMode(Dir_pin, OUTPUT);
 	#endif
 }
 
@@ -49,6 +55,19 @@ void step(step_config* step_config, uint32_t adim, uint32_t yon)
 			}
 		}
 	#elif defined (ARDUINO)
+		if (step_config->step_set.durum == Step_DURDU)
+			step_config->step_set.adim = adim;
+			step_config->step_set.durum = Step_BASLADI;
+
+			digitalWrite(step_config->Dir_pin, yon);
+			if (adim != 0 ){
+				for (uint32_t i = 0; i < adim; i++){
+					digitalWrite(step_config->Step_pin, HIGH);
+                    delayMicroseconds(500);  
+                    digitalWrite(step_config->Step_pin, LOW);
+                    delayMicroseconds(500);  
+				}
+			}
 
 	#endif
 }
@@ -62,6 +81,9 @@ void step_durdur(step_config* step_config){
 			step_config->step_set.sayac =0;
 		}
 	#elif defined (ARDUINO)
-
+        if (step_config->step_set.sayac == step_config->step_set.adim){
+            step_config->step_set.durum = Step_DURDU;
+            step_config->step_set.sayac = 0;
+        }
 	#endif
 }

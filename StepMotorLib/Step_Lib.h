@@ -27,7 +27,8 @@ typedef struct
 		GPIO_TypeDef*		dir_GPIOx;
 		uint16_t			dir_GPIO_Pin;
 	#elif defined (ARDUINO)
-		// arduino için gerkli yapı
+		int 				Step_pin;
+		int 				Dir_pin;
 	#endif
 
 		struct
